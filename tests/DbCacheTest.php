@@ -2,9 +2,11 @@
 namespace pdyn\cache\tests;
 
 /**
- * Test DbCache
+ * Test DbCache.
+ *
  * @group pdyn
  * @group pdyn_cache
+ * @codeCoverageIgnore
  */
 class DbCacheTest extends \PHPUnit_Framework_TestCase {
 	/**
@@ -17,13 +19,13 @@ class DbCacheTest extends \PHPUnit_Framework_TestCase {
 			$this->markTestSkipped('No database class available.');
 			return false;
 		}
-
 		$DB = new \pdyn\database\pdo\sqlite\DbDriver('\pdyn\cache\DbCacheDbSchema');
-		$dsn = 'sqlite::memory:';
-		$DB->connect($dsn);
+		$DB->connect('sqlite::memory:');
 		$DB->set_prefix('pdyncachetest_');
-		$DB->structure()->create_table('cache');
-
+		$tables = $DB->get_tables();
+		foreach ($tables as $table) {
+			$DB->structure()->create_table($table);
+		}
 		return new \pdyn\cache\DbCache($DB);
 	}
 

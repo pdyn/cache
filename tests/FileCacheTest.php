@@ -2,9 +2,11 @@
 namespace pdyn\cache;
 
 /**
- * Test FileCache
+ * Test FileCache.
+ *
  * @group pdyn
  * @group pdyn_cache
+ * @codeCoverageIgnore
  */
 class FileCacheTest extends \PHPUnit_Framework_TestCase {
 	/** @var string Directory to store cache files. */
