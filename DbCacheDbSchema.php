@@ -27,17 +27,7 @@ use \pdyn\base\Exception;
 /**
  * A test database schema.
  */
-class DbCacheDbSchema {
-	/**
-	 * Magic method to throw an exception if there is no schema for a requested table.
-	 *
-	 * @param string $name The called method name.
-	 * @param array $args Array of arguments.
-	 */
-	public static function __callStatic($name, $args) {
-		throw new Exception($name.' is not defined in database schema.', Exception::ERR_RESOURCE_NOT_FOUND);
-	}
-
+class DbCacheDbSchema extends \pdyn\database\DbSchema {
 	public static function cache() {
 		return [
 			'columns' => [
