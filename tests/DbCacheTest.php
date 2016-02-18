@@ -40,12 +40,12 @@ class DbCacheTest extends \PHPUnit_Framework_TestCase {
 			$this->markTestSkipped('No database class available.');
 			return false;
 		}
-		$DB = new \pdyn\database\pdo\sqlite\DbDriver('\pdyn\cache\DbCacheDbSchema');
+		$DB = new \pdyn\database\pdo\sqlite\DbDriver(['\pdyn\cache\DbCacheDbSchema']);
 		$DB->connect('sqlite::memory:');
 		$DB->set_prefix('pdyncachetest_');
-		$tables = $DB->get_tables();
-		foreach ($tables as $table) {
-			$DB->structure()->create_table($table);
+		$tables = $DB->get_schema();
+		foreach ($tables as $tablename => $tableschema) {
+			$DB->structure()->create_table($tablename);
 		}
 		return new \pdyn\cache\DbCache($DB);
 	}
